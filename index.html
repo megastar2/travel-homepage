@@ -234,48 +234,9 @@
     .socials a { transition: transform .15s ease; }
     .socials a:hover { transform: translateY(-3px) scale(1.1); }
 
-    /* ---------- 비밀번호 잠금 화면 (테스트용) ---------- */
-    #gate {
-      position: fixed; inset: 0; z-index: 9999;
-      background: linear-gradient(160deg, #fff7ef 0%, #ffeef4 55%, #eef6ff 100%);
-      display: grid; place-items: center;
-      font-family: "Noto Sans KR", sans-serif;
-    }
-    .gate-box {
-      background: #fff; padding: 2.6rem 2rem; border-radius: 22px;
-      box-shadow: 0 14px 40px rgba(0,0,0,.12);
-      text-align: center; width: min(360px, 88vw);
-    }
-    .gate-box .em { font-size: 2.8rem; }
-    .gate-box h2 { font-family: "Jua", sans-serif; margin: .4rem 0 .2rem; }
-    .gate-box .desc { color: #6b6d80; font-size: .95rem; margin-bottom: 1.2rem; }
-    .gate-box input {
-      width: 100%; padding: .85rem 1rem; border: 2px solid var(--yellow);
-      border-radius: 12px; font-size: 1rem; margin-bottom: .8rem; text-align: center;
-    }
-    .gate-box input:focus { outline: none; border-color: var(--orange); }
-    .gate-box button {
-      width: 100%; padding: .85rem; border: none; border-radius: 999px;
-      color: #fff; font-weight: 700; font-size: 1rem; cursor: pointer;
-      background: linear-gradient(135deg, var(--pink), var(--orange));
-    }
-    #gate-msg { color: var(--pink); min-height: 1.2em; margin-top: .7rem; font-size: .9rem; }
-    body.locked { overflow: hidden; }
   </style>
 </head>
 <body>
-
-  <!-- ===== 비밀번호 잠금 화면 (테스트용) ===== -->
-  <div id="gate">
-    <div class="gate-box">
-      <div class="em">🔒</div>
-      <h2>뚜껑이여행사</h2>
-      <p class="desc">테스트 중인 페이지입니다.<br>비밀번호를 입력해 주세요.</p>
-      <input id="gate-pw" type="password" placeholder="비밀번호" autocomplete="off" />
-      <button id="gate-btn">들어가기</button>
-      <p id="gate-msg"></p>
-    </div>
-  </div>
 
   <!-- ===== 상단 메뉴 ===== -->
   <header>
@@ -471,27 +432,6 @@
   </footer>
 
   <script>
-    // 비밀번호 잠금 (테스트용 간단 잠금)
-    (function () {
-      var PW = "test1234"; // 임시 비밀번호 — 원하는 값으로 바꿀 수 있어요
-      var gate = document.getElementById('gate');
-      if (sessionStorage.getItem('ddTravelOK') === '1') { gate.remove(); return; }
-      document.body.classList.add('locked');
-      function tryOpen() {
-        if (document.getElementById('gate-pw').value === PW) {
-          sessionStorage.setItem('ddTravelOK', '1');
-          document.body.classList.remove('locked');
-          gate.remove();
-        } else {
-          document.getElementById('gate-msg').textContent = '비밀번호가 맞지 않아요. 다시 입력해 주세요.';
-        }
-      }
-      document.getElementById('gate-btn').addEventListener('click', tryOpen);
-      document.getElementById('gate-pw').addEventListener('keydown', function (e) {
-        if (e.key === 'Enter') tryOpen();
-      });
-    })();
-
     // 모바일 메뉴 열고 닫기
     const btn = document.getElementById('menuBtn');
     const menu = document.getElementById('menu');
